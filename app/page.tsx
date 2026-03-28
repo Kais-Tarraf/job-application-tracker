@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export default function Home() {
 	return (
@@ -14,8 +15,15 @@ export default function Home() {
 							Capture, organize your job search in one place.
 						</p>
 						<div className="flex flex-col items-center gap-4">
-							<button >Start for free</button>
-							<p>Free forever. No credit card required.</p>
+							<Button
+								size="lg"
+								className="h-12 px-8 text-lg font-medium cursor-pointer"
+							>
+								Start for free <ArrowRight className="ml-2" />
+							</Button>
+							<p className="text-sm text-muted-foreground">
+								Free forever. No credit card required.
+							</p>
 						</div>
 					</div>
 				</section>
