@@ -13,7 +13,7 @@ const Dashboard = async () => {
 	const board = await Board.findOne({
 		userId: session.user.id,
 		name: "Job Hunt",
-	}).populate({ path: "columns" });
+	}).populate({ path: "columns", populate: { path: "jobApplications" } });
 	return (
 		<div className="min-h-screen bg-white">
 			<div className="container mx-auto p-6">
