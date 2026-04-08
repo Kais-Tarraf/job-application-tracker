@@ -10,6 +10,12 @@ const db = client.db();
 
 export const auth = betterAuth({
 	database: mongodbAdapter(db, { client }),
+	session: {
+		cookieCache: {
+			enabled: true,
+			maxAge: 60 * 60,
+		},
+	},
 	emailAndPassword: { enabled: true },
 	databaseHooks: {
 		user: {

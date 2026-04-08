@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { getSession } from "../auth/auth";
 import connectDB from "../db";
 import { Board, Column, JobApplication } from "../models";
@@ -72,6 +73,7 @@ export const createJobApplication = async (data: JobApplicationData) => {
 	await Column.findByIdAndUpdate(columnId, {
 		$push: { jobApplications: jobApplication._id },
 	});
+	revalidatePath("/dashboard"); // This will trigger a revalidation of the dashboard page, ensuring that the new job application appears immediately without needing a full page refresh.
 	return { data: JSON.parse(JSON.stringify(jobApplication)) };
 	// we stringify and parse to convert the Mongoose document to a plain JS object, which is necessary for Next.js server actions to serialize the data properly.
 	//  if we don't do this we will have error "Maximum call stack size exceeded" because Mongoose documents have circular references that can't be serialized directly.
