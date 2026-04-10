@@ -126,7 +126,7 @@ export async function updateJobApplication(
 		newColumnId && newColumnId !== currentColumnId;
 	if (isMovingToDifferentColumn) {
 		await Column.findByIdAndUpdate(currentColumnId, {
-			$pull: { jobApplication: id },
+			$pull: { jobApplications: id },
 		});
 		const jobsInTargetColumn = await JobApplication.find({
 			columnId: newColumnId,
@@ -156,7 +156,7 @@ export async function updateJobApplication(
 		updatesToApply.order = newOrderValue;
 
 		await Column.findByIdAndUpdate(newColumnId, {
-			$push: { jobApplication: id },
+			$push: { jobApplications: id },
 		});
 	} else if (order !== undefined && order !== null) {
 		const otherJobsInColumn = await JobApplication.find({
@@ -195,5 +195,6 @@ export async function updateJobApplication(
 	const updated = await JobApplication.findByIdAndUpdate(id, updatesToApply, {
 		new: true,
 	});
+	revalidatePath("/dashboard");
 	return { data: JSON.parse(JSON.stringify(updated)) };
 }
