@@ -30,7 +30,7 @@ const INITIAL_FORMDATA = {
 	tags: "",
 	description: "",
 };
-const CreateJobApplicationDialog = ({
+export const CreateJobApplicationDialog = ({
 	columnId,
 	boardId,
 }: CreateJobApplicationDialogProps) => {
@@ -60,11 +60,16 @@ const CreateJobApplicationDialog = ({
 	}
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger className="w-full mb-4 justify-start text-muted-foreground border-dashed border-2 hover:border-solid hover:bg-muted/50">
-				<Button variant="outline">
-					<Plus className="mr-2 h-4 w-4" /> Add Job
-				</Button>
-			</DialogTrigger>
+			<DialogTrigger
+				render={() => (
+					<Button
+						variant="outline"
+						className="w-full mb-4 justify-start text-muted-foreground border-dashed border-2 hover:border-solid hover:bg-muted/50"
+					>
+						<Plus className="mr-2 h-4 w-4" /> Add Job
+					</Button>
+				)}
+			/>
 			<DialogContent className="max-w-2xl">
 				<DialogHeader>
 					<DialogTitle>Add Job Application</DialogTitle>
